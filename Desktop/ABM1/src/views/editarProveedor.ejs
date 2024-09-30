@@ -1,0 +1,108 @@
+<%- include('partials/head.ejs') %>
+
+<title>Actualizar Proveedor</title>
+
+</head>
+<body>
+    <%- include('partials/header.ejs') %>
+    
+    <h1>Actualizar Proveedor</h1>
+    <div class="form-container">
+        <form action="/actualizarProveedor/<%= proveedor.idProveedor %>" method="post">
+            <table class="form-table">
+                <tr>
+                    <td><label for="nombreProveedor"><h2>Compañía</h2></label></td>
+                    <td><input type="text" name="nombreProveedor" id="nombreProveedor" value="<%= proveedor.nombreProveedor %>" required></td>
+                </tr>
+                <tr>
+                    <td><label for="contactoProveedor"><h2>Contacto</h2></label></td>
+                    <td><input type="text" name="contactoProveedor" id="contactoProveedor" value="<%= proveedor.contactoProveedor %>" required></td>
+                </tr>
+                <tr>
+                    <td><label for="celularProveedor"><h2>Celular</h2></label></td>
+                    <td><input type="tel" name="celularProveedor" id="celularProveedor" value="<%= proveedor.celularProveedor %>" required></td>
+                </tr>
+                <tr>
+                    <td><label for="emailProveedor"><h2>Mail</h2></label></td>
+                    <td><input type="email" name="emailProveedor" id="emailProveedor" value="<%= proveedor.emailProveedor %>" required></td>
+                </tr>
+                <tr>
+                    <td><label for="webProveedor"><h2>Web</h2></label></td>
+                    <td><input type="text" name="webProveedor" id="webProveedor" value="<%= proveedor.webProveedor %>" required></td>
+                </tr>
+                <tr>
+                    <td><label for="ordenProveedor"><h2>Mínimo de orden</h2></label></td>
+                    <td>
+                        <select name="ordenProveedor" id="ordenProveedor" required>
+                            <option value="" <%= proveedor.ordenProveedor === 'No' ? 'selected' : '' %>>Seleccionar</option>
+                            <option value="No" <%= proveedor.ordenProveedor === 'No' ? 'selected' : '' %>>No</option>
+                            <option value="Si" <%= proveedor.ordenProveedor === 'Si' ? 'selected' : '' %>>Si</option>
+                        </select>
+                        <input type="hidden" name="minimoOrdenInput" id="minimoOrdenInput" value="<%= proveedor.minimoOrdenInput %>">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="paisProveedor"><h2>País</h2></label></td>
+                    <td>
+                        <select name="paisProveedor" id="paisProveedor" required>
+                            <% paises.forEach(pais => { %>
+                                <option value="<%= pais.id %>" <%= proveedor.paisProveedor === pais.nombre ? 'selected' : '' %>><%= pais.nombre %></option>
+                            <% }); %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="tipoProveedor"><h2>Tipo</h2></label></td>
+                    <td>
+                        <select name="tipoProveedor" id="tipoProveedor" required>
+                            <option value="fabricante" <%= proveedor.tipoProveedor === 'fabricante' ? 'selected' : '' %>>Fabricante</option>
+                            <option value="vendedor" <%= proveedor.tipoProveedor === 'vendedor' ? 'selected' : '' %>>Vendedor</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="condicionDeVenta"><h2>Condición de venta</h2></label></td>
+                    <td>
+                        <select name="condicionDeVenta" id="condicionDeVenta" required>
+                            <option value="FOB" <%= proveedor.condicionDeVenta === 'FOB' ? 'selected' : '' %>>FOB</option>
+                            <option value="FCA" <%= proveedor.condicionDeVenta === 'FCA' ? 'selected' : '' %>>FCA</option>
+                            <option value="CIF" <%= proveedor.condicionDeVenta === 'CIF' ? 'selected' : '' %>>CIF</option>
+                            <option value="EXW" <%= proveedor.condicionDeVenta === 'EXW' ? 'selected' : '' %>>EXW</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="lugarDeEntrega"><h2>Lugar de entrega</h2></label></td>
+                    <td><input type="text" name="lugarDeEntrega" id="lugarDeEntrega" value="<%= proveedor.lugarDeEntrega %>" required></td>
+                </tr>
+                <tr>
+                    <td><label for="fotoProveedor"><h2>Foto</h2></label></td>
+                    <td><input type="file" name="fotoProveedor" id="fotoProveedor" accept="image/*" capture="camera"></td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2" class="submit-row">
+                        <button type="submit">Actualizar</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    
+    <a href="/">Volver a la lista de proveedores</a>
+
+    <div id="dialogMinimoOrden" class="dialog">
+        <div class="dialog-content">
+            <span class="close-btn" id="closeDialog">&times;</span>
+            <h2>Ingrese el mínimo de orden</h2>
+            <input type="number" id="inputMinimoOrdenDialog" min="0">
+            <button id="guardarMinimoOrden">Guardar</button>
+        </div>
+    </div>
+
+    <script src="/js/cargaMinima.js"></script>
+        
+    </script>
+</body>
+</html>
+
